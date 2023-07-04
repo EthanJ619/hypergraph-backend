@@ -9,5 +9,4 @@ public class HypergraphApplication {
     public static void main(String[] args) {
         SpringApplication.run(HypergraphApplication.class, args);
     }
-
 }
