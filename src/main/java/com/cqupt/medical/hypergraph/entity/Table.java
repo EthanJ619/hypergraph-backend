@@ -20,11 +20,17 @@ import java.sql.Timestamp;
 @TableName("data_table")
 public class Table {
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer tableId;
+    private Long tableId;
     private String tableName;
     private String disease;
+    private String tableSize;
     private Timestamp uploadTime;
     private String des;
 
     private String uploader;
+
+    public Table(String tableName, String tableSize) {
+        this.tableName = tableName;
+        this.tableSize = tableSize;
+    }
 }

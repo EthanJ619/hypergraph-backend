@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.cqupt.medical.hypergraph.entity.Table;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @Author EthanJ
  * @Date 2023/6/23 17:02
@@ -11,5 +13,12 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface TableService extends IService<Table> {
 
-    void storeTable(MultipartFile tableFile, Table table);
+//    String storeTable(MultipartFile tableFile, Table tableInfo);
+    String storeTable(MultipartFile tableFile);
+
+    List<Table> getAllTables();
+
+    String deleteTable(String tableName);
+
+    String saveTableInfo(Table tableInfo);
 }

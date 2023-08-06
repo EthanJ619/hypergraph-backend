@@ -1,6 +1,5 @@
 package com.cqupt.medical.hypergraph.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqupt.medical.hypergraph.entity.Task;
 import com.cqupt.medical.hypergraph.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,6 @@ public class TaskController {
     @GetMapping("/task/{id}")
     public Task queryById(@PathVariable("id") Integer id) {
         return taskService.getById(id);
-    }
-
-    @GetMapping("/tasks/type/{type}")
-    public List<Task> queryTaskByType(@PathVariable("type")String type) {
-        return taskService.list(new QueryWrapper<Task>().eq("type", type));
     }
 
     @PostMapping("/task")

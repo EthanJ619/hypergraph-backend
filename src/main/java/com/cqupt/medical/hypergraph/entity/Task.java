@@ -20,11 +20,12 @@ import java.sql.Timestamp;
 @TableName("task")
 public class Task {
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer taskId;
+    private Long taskId;
     private String taskName;
     private String taskType;
     private Timestamp createTime;
 
     private String creater;
-    private Integer tableId;
+    private String tableName;
+
 }

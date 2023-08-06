@@ -1,6 +1,5 @@
 package com.cqupt.medical.hypergraph.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqupt.medical.hypergraph.entity.Table;
 import com.cqupt.medical.hypergraph.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,33 +21,32 @@ public class TableController {
 
     @GetMapping("/tables")
     public List<Table> queryAllTables() {
-        return tableService.list();
+        return tableService.getAllTables();
     }
 
-    @GetMapping("/table/{id}")
+    @GetMapping("/table/{table_name}")
     public Table queryTableById(@PathVariable("id") Integer id) {
         return tableService.getById(id);
     }
 
-    @GetMapping("tables/source/{source}")
-    public List<Table> queryTablesBySource(@PathVariable("source") String source) {
-        return tableService.list(new QueryWrapper<Table>().eq("source", source));
-    }
-
-    @GetMapping("tables/disease/{disease}")
-    public List<Table> queryTablesByDisease(@PathVariable("disease") String disease) {
-        return tableService.list(new QueryWrapper<Table>().eq("disease", disease));
+    @PostMapping("/table/add_info")
+    public String addTableInfo(@RequestBody Table tableInfo){
+        return tableService.saveTableInfo(tableInfo);
     }
 
     @PostMapping("/table/upload")
-    public String uploadTable(@RequestPart("data_table") MultipartFile tableFile, @RequestPart("table_info") Table table_info) {
-        tableService.storeTable(tableFile, table_info);
-        return "upload table success!";
+    public String uploadTable(@RequestPart("data_table") MultipartFile tableFile){
+        return tableService.storeTable(tableFile);
     }
 
-    @DeleteMapping("/table/delete/{id}")
-    public String delTable(@PathVariable("id") Integer id){
-        tableService.removeById(id);
-        return "delete table success!";
+//    @PostMapping("/table/upload")
+//    public String uploadTable(@RequestPart("data_table") MultipartFile tableFile, @RequestPart("table_info") String tableInfoStr) throws JsonProcessingException {
+//        Table tableInfo = new ObjectMapper().readValue(tableInfoStr, Table.class);  //将收到的json字符串转化为对象
+//        return tableService.storeTable(tableFile, tableInfo);
+//    }
+
+    @DeleteMapping("/table/delete/{table_name}")
+    public String delTable(@PathVariable("table_name") String tableName) {
+        return tableService.deleteTable(tableName);
     }
 }
