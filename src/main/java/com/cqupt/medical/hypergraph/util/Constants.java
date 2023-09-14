@@ -2,6 +2,8 @@ package com.cqupt.medical.hypergraph.util;
 
 import org.springframework.util.ClassUtils;
 
+import java.io.File;
+
 /**
  * 常量类
  *
@@ -11,7 +13,10 @@ import org.springframework.util.ClassUtils;
  */
 public class Constants {
 
-    public static final String TABLE_PATH = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/table/";
+    public static final String RESOURCE_PATH = ClassUtils.getDefaultClassLoader().getResource("").getPath().replace("/", "\\") + "static" + File.separator;
+    public static final String TABLE_PATH = ClassUtils.getDefaultClassLoader().getResource("").getPath().replace("/", "\\") + "static" + File.separator + "table" + File.separator;
+
+    public static final String SCRIPT_PATH = ClassUtils.getDefaultClassLoader().getResource("").getPath().replace("/", "\\") + "static" + File.separator + "script" + File.separator;
 
     public static final String SUCCESS_CODE = "200";
     public static final String FAIL_CODE = "500";

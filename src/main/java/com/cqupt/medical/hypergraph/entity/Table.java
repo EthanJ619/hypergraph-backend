@@ -25,7 +25,7 @@ public class Table {
     private String disease;
     private String tableSize;
     private Timestamp uploadTime;
-    private String des;
+    private String tableDesc;
 
     private String uploader;
 

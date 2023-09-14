@@ -9,4 +9,11 @@ import com.cqupt.medical.hypergraph.entity.Task;
  * @Version 1.0
  */
 public interface TaskService extends IService<Task> {
-}
+
+    String createTask(Task task);
+
+    String delRecordFile(String taskName);
+
+
+
+    }

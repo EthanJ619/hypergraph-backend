@@ -21,4 +21,6 @@ public interface TableService extends IService<Table> {
     String deleteTable(String tableName);
 
     String saveTableInfo(Table tableInfo);
+
+    String queryTableFeatures(String tableName);
 }

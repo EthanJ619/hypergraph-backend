@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionException;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -88,7 +89,7 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
         while (tableIterator.hasNext()) {
             Table table = tableIterator.next();
             String filePath = TABLE_PATH + table.getTableName();
-            /*检查文件是否存在*/
+            /*检查文件是否存在，不存在则从数据库中删除表项*/
             if (!(new File(filePath).exists())) {
                 tableIterator.remove();
                 remove(new QueryWrapper<Table>().eq("table_name", table.getTableName()));
@@ -108,9 +109,13 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
         return tableList;
     }
 
+    /**
+     * 删除数据表文件
+     * @param tableName
+     * @return
+     */
     @Override
     public String deleteTable(String tableName) {
-        /*删除文件*/
         String filePath = TABLE_PATH + tableName;
         File file = new File(filePath);
         if (file.delete()) {
@@ -118,6 +123,31 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
             return new JsonUtil(SUCCESS_CODE, "删除成功", null).toJsonString();
         } else
             return new JsonUtil(FAIL_CODE, "文件删除失败", null).toJsonString();
+    }
+
+    /**
+     * 查询数据表的特征列
+     *
+     * @param tableName
+     * @return
+     */
+    @Override
+    public String queryTableFeatures(String tableName) {
+        String filePath = TABLE_PATH + tableName;
+        List<String> tableHeaders = new ArrayList<>();
+        String line;
+
+        /*读取csv文件的第一行*/
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            if ((line = br.readLine()) != null) {
+                String[] tableHead = line.replace("\"", "").split(",");  //csv数据以换行和逗号分隔
+                tableHeaders.addAll(Arrays.asList(tableHead));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new JsonUtil(SUCCESS_CODE, "数据表特征列查询成功", tableHeaders).toJsonString();
     }
 
     /**
