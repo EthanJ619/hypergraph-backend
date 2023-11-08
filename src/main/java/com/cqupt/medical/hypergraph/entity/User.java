@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @Author EthanJ
  * @Date 2023/6/23 9:54
@@ -16,9 +18,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("user")
-public class User {
+public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long userId;
     private String username;
     private String password;
+
+    private static final long serialVersionUID = 1L;
 }

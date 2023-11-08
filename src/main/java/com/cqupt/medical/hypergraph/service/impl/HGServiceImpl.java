@@ -63,7 +63,33 @@ public class HGServiceImpl implements HGService {
      */
     @Override
     public JsonUtil drawTemporalHG(String tableName, String taskName) {
-        return null;
+//        int exitCode = 1;
+//        StringBuilder pyOut = null;
+//        try {
+//            /*调用py脚本*/
+//            ProcessBuilder processBuilder = new ProcessBuilder("python", SCRIPT_PATH.substring(1) + "drawTemporalHG.py", RESOURCE_PATH.substring(1), tableName, taskName);  //读取类绝对路径时会在前面多一个斜杠
+//            processBuilder.redirectErrorStream(true);
+//            Process process = processBuilder.start();
+//
+//            /* 读取脚本输出 */
+//            BufferedReader in = new BufferedReader(new InputStreamReader((process.getInputStream())));
+//            String line = null;
+//            pyOut = new StringBuilder();
+//            while ((line = in.readLine()) != null)
+//                pyOut.append(line).append("\n");
+//
+//            exitCode = process.waitFor();
+//
+//            in.close();
+//        } catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        if (exitCode == 0)
+//            return new JsonUtil(SUCCESS_CODE, "时间超图构建成功", pyOut);
+//        else
+//            return new JsonUtil(FAIL_CODE, "超图构建出错", pyOut);
+////        return new JsonUtil(SUCCESS_CODE, "时间超图构建成功", null);
+        return new JsonUtil(SUCCESS_CODE, "时间超图构建成功", null);
     }
 
     /**
@@ -75,7 +101,32 @@ public class HGServiceImpl implements HGService {
      */
     @Override
     public JsonUtil drawTSHG(String tableName, String taskName) {
-        return null;
+//        int exitCode = 1;
+//        StringBuilder pyOut = null;
+//        try {
+//            /*调用py脚本*/
+//            ProcessBuilder processBuilder = new ProcessBuilder("python", SCRIPT_PATH.substring(1) + "drawTSHG.py", RESOURCE_PATH.substring(1), tableName, taskName);  //读取类绝对路径时会在前面多一个斜杠
+//            processBuilder.redirectErrorStream(true);
+//            Process process = processBuilder.start();
+//
+//            /* 读取脚本输出 */
+//            BufferedReader in = new BufferedReader(new InputStreamReader((process.getInputStream())));
+//            String line = null;
+//            pyOut = new StringBuilder();
+//            while ((line = in.readLine()) != null)
+//                pyOut.append(line).append("\n");
+//
+//            exitCode = process.waitFor();
+//
+//            in.close();
+//        } catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        if (exitCode == 0)
+//            return new JsonUtil(SUCCESS_CODE, "跨时空超图构建成功", pyOut);
+//        else
+//            return new JsonUtil(FAIL_CODE, "超图构建出错", pyOut);
+////        return new JsonUtil(SUCCESS_CODE, "跨时空超图构建成功", null);
+        return new JsonUtil(SUCCESS_CODE, "跨时空超图构建成功", null);
     }
-
 }

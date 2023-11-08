@@ -33,7 +33,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Transactional
     public String createTask(Task task) {
         if (getOne(new QueryWrapper<Task>().eq("task_name", task.getTaskName())) != null)
-            return new JsonUtil(FAIL_CODE, "任务名称重复！已存在任务请前往任务日志页面进行结果展示", null).toJsonString();
+            return new JsonUtil(FAIL_CODE, "任务名称重复！", null).toJsonString();
 
         /* 创建存放超图构建结果的文件夹 */
         File plotFolder = new File(RESOURCE_PATH + "plot");
@@ -79,7 +79,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             if (deleteFolder(plotFolder)) {
                 remove(new QueryWrapper<Task>().eq("task_name", taskName));  //删除数据库中表项
                 return new JsonUtil(SUCCESS_CODE, "删除成功", null).toJsonString();
-            } else return new JsonUtil(SUCCESS_CODE, "任务记录删除失败", null).toJsonString();
+            } else return new JsonUtil(FAIL_CODE, "任务记录文件删除失败", null).toJsonString();
         } else
             return new JsonUtil(FAIL_CODE, "任务记录文件不存在", null).toJsonString();
     }

@@ -1,10 +1,13 @@
 package com.cqupt.medical.hypergraph.util;
 
+import com.cqupt.medical.hypergraph.entity.Table;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * @Author EthanJ
@@ -14,11 +17,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JsonUtil {
+public class JsonUtil<T> {
 
     private String code;
     private String message;
-    private Object data;
+    private T data;
+
+    private List<Table> tablesPagnation;
+    private Integer pageCount;
 
     public String toJsonString() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -28,6 +34,19 @@ public class JsonUtil {
             e.printStackTrace();
             return "{'code':'500','message':'服务器内部错误：JsonProcessingException'}";
         }
+    }
+
+    public JsonUtil(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    public JsonUtil(String code, String message, T data, Integer pageCount) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+        this.pageCount = pageCount;
     }
 
 }

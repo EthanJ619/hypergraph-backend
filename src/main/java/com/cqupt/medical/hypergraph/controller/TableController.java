@@ -3,11 +3,17 @@ package com.cqupt.medical.hypergraph.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqupt.medical.hypergraph.entity.Table;
 import com.cqupt.medical.hypergraph.service.TableService;
+import com.cqupt.medical.hypergraph.util.JsonUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.cqupt.medical.hypergraph.util.Constants.SUCCESS_CODE;
 
 /**
  * @Author EthanJ
@@ -21,8 +27,15 @@ public class TableController {
     private TableService tableService;
 
     @GetMapping("/tables")
-    public List<Table> queryAllTables() {
-        return tableService.getAllTables();
+    public JsonUtil<List<Table>> queryAllTables(int pageNum) {
+        List<Table> tables = new ArrayList<>();
+        if (pageNum == 1)
+            tables = tableService.getAllTables();
+
+        PageHelper.startPage(pageNum, 15);
+        List<Table> tablesPagnation = tableService.getAllTables();
+        PageInfo<Table> tablePageInfo = new PageInfo<>(tablesPagnation);
+        return new JsonUtil<>(SUCCESS_CODE, "获取数据表成功", tables, tablesPagnation, tablePageInfo.getPages());
     }
 
     @GetMapping("/table/{table_name}")
@@ -55,4 +68,5 @@ public class TableController {
     public String getTableFeatures(@PathVariable("table_name") String tableName) {
         return tableService.queryTableFeatures(tableName);
     }
+
 }
