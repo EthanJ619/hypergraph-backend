@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface TableService extends IService<Table> {
 
-//    String storeTable(MultipartFile tableFile, Table tableInfo);
+    //    String storeTable(MultipartFile tableFile, Table tableInfo);
     String storeTable(MultipartFile tableFile);
 
     List<Table> getAllTables();

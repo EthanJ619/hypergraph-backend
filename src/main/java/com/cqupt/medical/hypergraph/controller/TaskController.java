@@ -29,12 +29,17 @@ public class TaskController {
     @Autowired
     private HGService hgService;
 
-    @GetMapping("/tasks")
-    public JsonUtil<List<Task>> queryAllTasks(int pageNum) {
+    @GetMapping("/tasks/{pageNum}")
+    public JsonUtil<List<Task>> queryTasksPagination(@PathVariable("pageNum") int pageNum) {
         PageHelper.startPage(pageNum, 15);
         List<Task> tasks = taskService.list();
         PageInfo<Task> taskPageInfo = new PageInfo<>(tasks);
         return new JsonUtil<>(SUCCESS_CODE, "获取任务日志成功", tasks, taskPageInfo.getPages());
+    }
+
+    @GetMapping("/tasks")
+    public List<Task> queryAllTasks(){
+        return taskService.list();
     }
 
     @GetMapping("/task/{id}")

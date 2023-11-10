@@ -2,8 +2,10 @@ package com.cqupt.medical.hypergraph.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cqupt.medical.hypergraph.entity.ColumnManager;
+import com.cqupt.medical.hypergraph.entity.dto.ColumnManagerDTO;
 import com.cqupt.medical.hypergraph.mapper.ColumnManagerMapper;
 import com.cqupt.medical.hypergraph.service.ColumnManagerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,10 +18,10 @@ public class ColumnManagerServiceImpl extends ServiceImpl<ColumnManagerMapper, C
 
 //    @Autowired
 //    private TableService tableService;
-//
-//    @Autowired
-//    private ColumnManagerMapper columnManagerMapper;
-//
+
+    @Autowired
+    private ColumnManagerMapper columnManagerMapper;
+
 //    @Override
 //    public List<ColumnManager> getAllData() {
 //        return list();
@@ -44,9 +46,14 @@ public class ColumnManagerServiceImpl extends ServiceImpl<ColumnManagerMapper, C
 //        }
 //        return res;
 //    }
-//
-//    @Override
-//    public void addColumn(ColumnManagerDTO columnManagerDTO) {
-//        columnManagerMapper.insertColumn(columnManagerDTO);
-//    }
+
+    @Override
+    public void insertField(ColumnManagerDTO columnManagerDTO) {
+        columnManagerMapper.insertColumn(columnManagerDTO);
+    }
+
+    @Override
+    public void delFieldByTableName(String tableName){
+        columnManagerMapper.delColumnByTableName(tableName);
+    }
 }

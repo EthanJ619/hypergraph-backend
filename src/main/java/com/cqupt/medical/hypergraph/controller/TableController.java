@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.cqupt.medical.hypergraph.util.Constants.SUCCESS_CODE;
@@ -26,16 +25,17 @@ public class TableController {
     @Autowired
     private TableService tableService;
 
-    @GetMapping("/tables")
-    public JsonUtil<List<Table>> queryAllTables(int pageNum) {
-        List<Table> tables = new ArrayList<>();
-        if (pageNum == 1)
-            tables = tableService.getAllTables();
-
+    @GetMapping("/tables/{pageNum}")
+    public JsonUtil<List<Table>> queryTablesPagination(@PathVariable("pageNum") int pageNum) {
         PageHelper.startPage(pageNum, 15);
-        List<Table> tablesPagnation = tableService.getAllTables();
-        PageInfo<Table> tablePageInfo = new PageInfo<>(tablesPagnation);
-        return new JsonUtil<>(SUCCESS_CODE, "获取数据表成功", tables, tablesPagnation, tablePageInfo.getPages());
+        List<Table> tables = tableService.getAllTables();
+        PageInfo<Table> tablePageInfo = new PageInfo<>(tables);
+        return new JsonUtil<>(SUCCESS_CODE, "获取数据表成功", tables, tablePageInfo.getPages());
+    }
+
+    @GetMapping("tables")
+    public List<Table> queryAllTables() {
+        return tableService.getAllTables();
     }
 
     @GetMapping("/table/{table_name}")

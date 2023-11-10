@@ -2,6 +2,7 @@ package com.cqupt.medical.hypergraph.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cqupt.medical.hypergraph.entity.ColumnManager;
+import com.cqupt.medical.hypergraph.entity.dto.ColumnManagerDTO;
 
 /**
  * @Author EthanJ
@@ -15,8 +16,8 @@ public interface ColumnManagerService extends IService<ColumnManager> {
 //    List<String> getFieldByTableName(String tableName);
 //
 //    List<ColumnManager> getAllColumnManagerByTableName(List<String> tableName);
-//
-//    void addColumn(ColumnManagerDTO columnManagerDTO);
 
+    void insertField(ColumnManagerDTO columnManagerDTO);
 
+    void delFieldByTableName(String tableName);
 }
