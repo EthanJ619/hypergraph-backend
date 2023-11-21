@@ -59,7 +59,7 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
 //        String subName = fileName.substring(fileName.lastIndexOf("."));
 //        String mainName = fileName.substring(0, fileName.lastIndexOf("."));
 //        String uuid = UUID.randomUUID().toString();
-        String filePath = TABLE_PATH + fileName;
+        String filePath = LOCALSTORAGE_PATH + "table\\"+ fileName;
 
         List<String> tableHeaders = new ArrayList<>();
         /*读取文件特征列*/
@@ -129,7 +129,7 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
         Iterator<Table> tableIterator = tableList.iterator();
         while (tableIterator.hasNext()) {
             Table table = tableIterator.next();
-            String filePath = TABLE_PATH + table.getTableName();
+            String filePath = LOCALSTORAGE_PATH + "table\\" + table.getTableName();
             /*检查文件是否存在，不存在则从数据库中删除表项*/
             if (!(new File(filePath).exists())) {
                 tableIterator.remove();
@@ -158,7 +158,7 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
      */
     @Override
     public String deleteTable(String tableName) {
-        String filePath = TABLE_PATH + tableName;
+        String filePath = LOCALSTORAGE_PATH + "table\\"+ tableName;
         File file = new File(filePath);
         if (file.delete()) {
             columnManagerService.delFieldByTableName(tableName);     //删除数据库中字段管理表中对应该表的的字段信息
@@ -179,7 +179,7 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
     @Override
     @Transactional
     public String queryTableFeatures(String tableName) {
-        String filePath = TABLE_PATH + tableName;
+        String filePath = LOCALSTORAGE_PATH + "table\\"+ tableName;
 
         List<String> tableHeaders = new ArrayList<>();
         /*读取文件特征列*/

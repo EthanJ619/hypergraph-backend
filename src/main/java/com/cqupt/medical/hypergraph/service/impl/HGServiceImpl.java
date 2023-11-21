@@ -31,7 +31,7 @@ public class HGServiceImpl implements HGService {
         StringBuilder pyOut = null;
         try {
             /*调用py脚本*/
-            ProcessBuilder processBuilder = new ProcessBuilder("python", SCRIPT_PATH.substring(1) + "drawSpatialHG.py", RESOURCE_PATH.substring(1), tableName, taskName);  //读取类绝对路径时会在前面多一个斜杠
+            ProcessBuilder processBuilder = new ProcessBuilder("python", SCRIPT_PATH.substring(1) + "drawSpatialHG.py", WORKSPACE_PATH + "\\table\\", tableName, taskName);  //读取类绝对路径时会在前面多一个斜杠
             processBuilder.redirectErrorStream(true);  //重定向标准输出，使得要执行的进程的错误输出可以被输入流读取
             Process process = processBuilder.start();
 

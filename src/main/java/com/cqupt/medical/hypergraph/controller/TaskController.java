@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.cqupt.medical.hypergraph.util.Constants.RESOURCE_PATH;
 import static com.cqupt.medical.hypergraph.util.Constants.SUCCESS_CODE;
 
 
@@ -57,13 +56,4 @@ public class TaskController {
         return taskService.delRecordFile(taskName);
     }
 
-    /**
-     * 获取静态资源路径
-     *
-     * @return
-     */
-    @GetMapping("/resource")
-    public String getResourceFolder() {
-        return RESOURCE_PATH.substring(1);
-    }
 }

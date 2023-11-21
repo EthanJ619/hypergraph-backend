@@ -36,7 +36,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             return new JsonUtil(FAIL_CODE, "任务名称重复！", null).toJsonString();
 
         /* 创建存放超图构建结果的文件夹 */
-        File plotFolder = new File(RESOURCE_PATH + "plot");
+        File plotFolder = new File(LOCALSTORAGE_PATH + "plot\\");
         if (!plotFolder.exists())
             plotFolder.mkdir();
 
@@ -73,7 +73,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     @Override
     public String delRecordFile(String taskName) {
-        String folderPath = RESOURCE_PATH + "plot" + File.separator + taskName;
+        String folderPath = LOCALSTORAGE_PATH + "plot" + File.separator + taskName;
         File plotFolder = new File(folderPath);
         if (plotFolder.exists()) {
             if (deleteFolder(plotFolder)) {
