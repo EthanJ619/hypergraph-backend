@@ -15,8 +15,8 @@ public class Constants {
 
     public static final String RESOURCE_PATH = ClassUtils.getDefaultClassLoader().getResource("").getPath().replace("/", "\\") + "static" + File.separator;
     public static final String WORKSPACE_PATH = System.getProperty("user.dir");
-    public static final String LOCALSTORAGE_PATH=".\\software6\\";
-//    public static final String LOCALSTORAGE_PATH=".\\hypergraph\\";
+    public static final String LOCALSTORAGE_PATH = WORKSPACE_PATH + "\\software6\\";
+    //    public static final String LOCALSTORAGE_PATH=WORKSPACE_PATH + "\\hypergraph\\";
     public static final String SCRIPT_PATH = ClassUtils.getDefaultClassLoader().getResource("").getPath().replace("/", "\\") + "static" + File.separator + "script" + File.separator;
 
     public static final String SUCCESS_CODE = "200";
