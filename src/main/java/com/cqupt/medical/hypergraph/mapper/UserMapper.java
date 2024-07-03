@@ -24,7 +24,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     boolean updateStatusById(Integer uid,Integer role , double uploadSize, String status);
 
-    int updateByname(String pwd, String username);
+//    int updateByname(String pwd, String username);
 
     void removeUserById(Integer uid);
 

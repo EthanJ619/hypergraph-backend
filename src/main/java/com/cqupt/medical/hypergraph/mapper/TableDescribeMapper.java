@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cqupt.medical.hypergraph.entity.TableDescribeEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public interface TableDescribeMapper extends BaseMapper<TableDescribeEntity> {
 
     void createTable(@Param("headers") String[] headers, @Param("tableName") String tableName);
     void insertRow(@Param("row") String[] row, @Param("tableName") String tableName);
-    List<String>  uploadDataTable(MultipartFile file, String tableId, String pid, String tableName, String userName, String classPath, String uid, String tableStatus);
+//    List<String>  uploadDataTable(MultipartFile file, String tableId, String pid, String tableName, String userName, String classPath, String uid, String tableStatus);
 
     List<TableDescribeEntity> selectAllDataInfo();
 
