@@ -1,17 +1,16 @@
 package com.cqupt.medical.hypergraph.controller;
 
 import com.cqupt.medical.hypergraph.entity.Task;
-import com.cqupt.medical.hypergraph.service.HGService;
 import com.cqupt.medical.hypergraph.service.TaskService;
-import com.cqupt.medical.hypergraph.util.JsonUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.cqupt.medical.hypergraph.util.Result;
+import com.cqupt.medical.hypergraph.util.TaskRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import static com.cqupt.medical.hypergraph.util.Constants.SUCCESS_CODE;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -20,40 +19,67 @@ import static com.cqupt.medical.hypergraph.util.Constants.SUCCESS_CODE;
  * @Version 1.0
  */
 @RestController
+@RequestMapping("/Task")
 public class TaskController {
-
     @Autowired
     private TaskService taskService;
 
-    @Autowired
-    private HGService hgService;
-
-    @GetMapping("/tasks/{pageNum}")
-    public JsonUtil<List<Task>> queryTasksPagination(@PathVariable("pageNum") int pageNum) {
-        PageHelper.startPage(pageNum, 15);
-        List<Task> tasks = taskService.list();
-        PageInfo<Task> taskPageInfo = new PageInfo<>(tasks);
-        return new JsonUtil<>(SUCCESS_CODE, "获取任务日志成功", tasks, taskPageInfo.getPages());
+    @GetMapping("/all")
+    public Result getTaskList() {
+        return Result.success(taskService.getTaskList());
     }
 
-    @GetMapping("/tasks")
-    public List<Task> queryAllTasks(){
-        return taskService.list();
+    @GetMapping("/result/{id}")
+    public Result result(@PathVariable int id) throws JsonProcessingException {
+        Task task = taskService.getlistbyId(id);
+        TaskRequest request = new TaskRequest();
+        System.out.println(task);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String res = task.getResult();
+        String[][] retrievedArray = objectMapper.readValue(res, String[][].class);
+
+        String fea1 = task.getFeature();
+        String[] fea = fea1.split(",");
+
+        String tar1 = task.getTargetcolumn();
+        String[] tar = tar1.split(",");
+
+        String para1 = task.getParameters();
+        String[] para = new String[0];
+        if (para1 != null) {
+            para = para1.split(",");
+        }
+
+        String paraV1 = task.getParametersvalues();
+        String[] paraV = new String[0];
+        if (paraV1 != null) {
+            paraV = paraV1.split(",");
+        }
+
+        request.setCi(task.getCi());
+        request.setRatio(String.valueOf(task.getRatio()));
+        request.setRes(retrievedArray);
+        request.setTime(task.getUsetime());
+        request.setDisease(task.getDisease());
+        request.setDisease(task.getDisease());
+        request.setFeature(fea);
+        request.setLeader(task.getLeader());
+        request.setModel(task.getModel());
+        request.setPara(para);
+        request.setParaValue(paraV);
+        request.setParticipant(task.getParticipant());
+        request.setTargetcolumn(tar);
+        request.setTaskName(task.getTaskname());
+        request.setDataset(task.getDataset());
+        request.setUid(task.getUserid());
+        return Result.success(request);
+
     }
 
-    @GetMapping("/task/{id}")
-    public Task queryById(@PathVariable("id") Integer id) {
-        return taskService.getById(id);
-    }
-
-    @PostMapping("/task")
-    public String createTask(@RequestBody Task task) {
-        return taskService.createTask(task);
-    }
-
-    @DeleteMapping("/task/delete/{task_name}")
-    public String delTask(@PathVariable("task_name") String taskName) {
-        return taskService.delRecordFile(taskName);
+    @GetMapping("/delete/{id}")
+    public Result deleteById(@PathVariable int id) {
+        taskService.deleteTask(id);
+        return Result.success(taskService.getTaskList());
     }
 
 }

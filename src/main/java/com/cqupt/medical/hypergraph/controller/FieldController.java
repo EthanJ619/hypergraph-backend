@@ -1,20 +1,20 @@
 package com.cqupt.medical.hypergraph.controller;
 
-import com.cqupt.medical.hypergraph.entity.ColumnManager;
-import com.cqupt.medical.hypergraph.entity.Table;
-import com.cqupt.medical.hypergraph.entity.dto.ColumnManagerDTO;
-import com.cqupt.medical.hypergraph.service.ColumnManagerService;
-import com.cqupt.medical.hypergraph.service.TableService;
-import com.cqupt.medical.hypergraph.util.JsonUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.cqupt.medical.hypergraph.entity.FieldEntity;
+import com.cqupt.medical.hypergraph.service.CategoryService;
+import com.cqupt.medical.hypergraph.service.FieldManageService;
+import com.cqupt.medical.hypergraph.service.TableDataService;
+import com.cqupt.medical.hypergraph.service.TableDescribeService;
+import com.cqupt.medical.hypergraph.util.Result;
+import com.cqupt.medical.hypergraph.vo.QueryFieldVO;
+import com.cqupt.medical.hypergraph.vo.UpdateFieldVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-import static com.cqupt.medical.hypergraph.util.Constants.FAIL_CODE;
-import static com.cqupt.medical.hypergraph.util.Constants.SUCCESS_CODE;
 
 /**
  * @Author EthanJ
@@ -22,58 +22,47 @@ import static com.cqupt.medical.hypergraph.util.Constants.SUCCESS_CODE;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/fieldManager")
+@RequestMapping("/field")
 public class FieldController {
 
     @Autowired
-    private ColumnManagerService columnManagerService;
+    TableDataService tableService;
 
     @Autowired
-    private TableService tableService;
+    CategoryService categoryService;
+    @Autowired
+    TableDescribeService tableDescService;
+
+    @Autowired
+    private FieldManageService fieldManageService;
+
 
     /**
-     * 上传数据表的字段信息
+     * 通过关联疾病名称展示字段信息
      *
-     * @param columnManagerDTO
-     * @return
+     * @param
+     * @return 字段信息表
      */
-    @PostMapping("/addField")
-    public JsonUtil<List<Table>> addField(@RequestBody ColumnManagerDTO columnManagerDTO) {
-        try {
-            columnManagerService.insertField(columnManagerDTO);
-            return new JsonUtil<>(SUCCESS_CODE, "添加字段成功", null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new JsonUtil<>(FAIL_CODE, "添加字段失败", null);
-        }
+    @PostMapping("/getAllField")
+    public Result getAllField(@RequestBody QueryFieldVO queryFieldVO) {
+        System.out.println(queryFieldVO.getDiseaseName());
+        List<FieldEntity> res = fieldManageService.getFieldByDiseaseName(queryFieldVO.getDiseaseName());
+        return Result.success(res);
     }
 
+
+    /**
+     * 新建特征表 根据动态选择来更新字段表
+     *
+     * 接收病种名字 和 字段列表
+     */
     @PostMapping("/updateField")
-    public JsonUtil updateField(@RequestBody ColumnManager columnManager) {
-        columnManagerService.updateById(columnManager);
-        return new JsonUtil<>(SUCCESS_CODE, "修改字段成功", null);
+    public Result updateField(@RequestBody UpdateFieldVO updateFieldVO) {
+        String diseaseName = updateFieldVO.getDiseaseName();
+        List<String> fields = updateFieldVO.getFields();
+        // 更新字段表信息
+        fieldManageService.updateFieldsByDiseaseName(diseaseName, fields);
+        return Result.success(null);
     }
 
-    @PostMapping("/delField")
-    public JsonUtil delField(@RequestBody ColumnManager columnManager) {
-        boolean res = columnManagerService.removeById(columnManager.getId());
-        if (res)
-            return new JsonUtil<>(SUCCESS_CODE, "删除字段成功", null);
-        else return new JsonUtil<>(FAIL_CODE, "删除字段失败", null);
-    }
-
-    /**
-     * 查询所有字段
-     *
-     * @param pageNum
-     * @return
-     */
-    @GetMapping("/fields")
-    public JsonUtil<List<ColumnManager>> queryAllFields(@RequestParam("pageNum") int pageNum) {
-        PageHelper.startPage(pageNum, 15);
-        List<ColumnManager> allColumns = columnManagerService.list();
-        PageInfo pageInfo = new PageInfo<>(allColumns);
-
-        return new JsonUtil<>(SUCCESS_CODE, "查询字段成功", allColumns, pageInfo.getPages());
-    }
 }

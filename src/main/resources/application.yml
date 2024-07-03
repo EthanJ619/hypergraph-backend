@@ -3,13 +3,23 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: user
-    password: 123456
-    url: jdbc:mysql:///hypergraph
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: user
+#    password: 123456
+#    url: jdbc:mysql:///hypergraph_v2?serverTimezone=UTC
 #    username: root
 #    password: 111111
 #    url: jdbc:mysql:///software6
+    url: jdbc:postgresql://localhost:5432/hypergraph
+    username: postgres
+    password: ethanj960916
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
 
 
   servlet:
@@ -22,4 +32,14 @@ spring:
 
   web:
     resources:
-      static-locations: classpath:/static/plot
+#      static-locations: classpath:/static/plot
+      static-locations: file:./software6/plot
+
+mybatis:
+  configuration:
+    default-executor-type: reuse
+
+pagehelper:
+  helperDialect: postgresql  # 设置数据库类型为PostgreSQL
+  reasonable: true      # 分页合理化参数，默认值为 false，设置为 true 后，如果 pageNum 小于 1，则自动设置为 1，如果 pageNum 大于总页数，则自动设置为最后一页
+  supportMethodsArguments: true  # 支持通过 Mapper 方法参数来传递分页参数，默认值为 false

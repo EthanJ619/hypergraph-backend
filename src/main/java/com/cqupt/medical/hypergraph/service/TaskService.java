@@ -1,7 +1,10 @@
 package com.cqupt.medical.hypergraph.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cqupt.medical.hypergraph.entity.AlgorithmUsageDailyStats;
 import com.cqupt.medical.hypergraph.entity.Task;
+
+import java.util.List;
 
 /**
  * @Author EthanJ
@@ -10,8 +13,14 @@ import com.cqupt.medical.hypergraph.entity.Task;
  */
 public interface TaskService extends IService<Task> {
 
-    String createTask(Task task);
+    List<AlgorithmUsageDailyStats> getAlgorithmUsageDailyStatsLast7Days();
 
-    String delRecordFile(String taskName);
+    List<String> getAlgorithmName();
+
+    List<Task> getTaskList();
+
+    Task getlistbyId(Integer id);
+
+    void deleteTask(int id);
 
 }
