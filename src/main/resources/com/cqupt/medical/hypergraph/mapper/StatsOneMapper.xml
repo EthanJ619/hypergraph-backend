@@ -27,10 +27,10 @@
     </select>
 
     <select id="getTaskCount" resultType="int">
-        SELECT COUNT(*) FROM software4task;
+        SELECT COUNT(*) FROM task;
     </select>
 
     <select id="getUserBuildTableNames" resultType="java.lang.String">
-        SELECT tablename FROM usertable;
+        SELECT table_name FROM table_describe;
     </select>
 </mapper>

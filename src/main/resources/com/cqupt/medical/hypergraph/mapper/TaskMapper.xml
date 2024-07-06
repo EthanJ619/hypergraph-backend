@@ -20,7 +20,7 @@
                      model,
                      COUNT(*) AS usageCount
                  FROM
-                     software4task
+                     task
                  WHERE
                      createtime >= CURRENT_DATE - INTERVAL '7 days'
                  GROUP BY
@@ -31,7 +31,7 @@
                 TO_CHAR(createtime, 'MM-DD') AS formattedDate,
                 COUNT(*) AS total
             FROM
-                software4task
+                task
             WHERE
                 createtime >= CURRENT_DATE - INTERVAL '7 days'
             GROUP BY
@@ -51,21 +51,21 @@
     </resultMap>
 
     <select id="getAlgorithmName" resultType="java.lang.String">
-        select Distinct model from software4task
+        select Distinct model from task
     </select>
 
     <select id="getTaskList" resultType="com.cqupt.medical.hypergraph.entity.Task">
-        select *  from software4task
+        select *  from task
     </select>
 
 
 
     <select id="getlistbyId" resultType="com.cqupt.medical.hypergraph.entity.Task">
-        select * from software4task where  id = #{Id}
+        select * from task where  id = #{Id}
     </select>
 
     <delete id="deleteTask">
-        DELETE from software4task where id = #{id}
+        DELETE from task where id = #{id}
     </delete>
 
 </mapper>

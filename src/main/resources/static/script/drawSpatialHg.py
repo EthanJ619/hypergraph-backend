@@ -75,7 +75,7 @@ def draw_original():
         zz = np.zeros(xx.shape) + gi
         ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.3, zorder=gi)
         # 添加平面标签
-        layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+        layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                             color='.95', fontsize=15, zorder=1e5, ha='left', va='center',
                             path_effects=[path_effects.Stroke(linewidth=2, foreground=cols[gi]),
                                           path_effects.Normal()])
@@ -97,8 +97,8 @@ def draw_original():
     ax.set_zlim(-0.1, len(graphs) - 1 + 0.1)
 
     # 选择显示视角
-    angle = 30
-    height_angle = 12
+    angle = 13
+    height_angle = 21
     ax.view_init(height_angle, angle)
 
     # 选择显示距离
@@ -144,7 +144,7 @@ def draw_examine():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.3, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.95', fontsize=15, zorder=1e5, ha='left', va='center',
                                 path_effects=[path_effects.Stroke(linewidth=2, foreground=cols[gi]),
                                               path_effects.Normal()])
@@ -172,7 +172,7 @@ def draw_examine():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.1, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.9', fontsize=15, zorder=1e5, ha='left', va='center')
 
     # 层间连线
@@ -193,8 +193,8 @@ def draw_examine():
     ax.set_zlim(-0.1, len(graphs) - 1 + 0.1)
 
     # 选择显示视角
-    angle = 30
-    height_angle = 12
+    angle = 13
+    height_angle = 21
     ax.view_init(height_angle, angle)
 
     # 选择显示距离
@@ -240,7 +240,7 @@ def draw_physiology():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.3, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.95', fontsize=15, zorder=1e5, ha='left', va='center',
                                 path_effects=[path_effects.Stroke(linewidth=2, foreground=cols[gi]),
                                               path_effects.Normal()])
@@ -268,7 +268,7 @@ def draw_physiology():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.1, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.9', fontsize=15, zorder=1e5, ha='left', va='center')
 
     # 层间连线
@@ -289,8 +289,8 @@ def draw_physiology():
     ax.set_zlim(-0.1, len(graphs) - 1 + 0.1)
 
     # 选择显示视角
-    angle = 30
-    height_angle = 12
+    angle = 13
+    height_angle = 21
     ax.view_init(height_angle, angle)
 
     # 选择显示距离
@@ -336,7 +336,7 @@ def draw_population():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.3, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.95', fontsize=15, zorder=1e5, ha='left', va='center',
                                 path_effects=[path_effects.Stroke(linewidth=2, foreground=cols[gi]),
                                               path_effects.Normal()])
@@ -364,7 +364,7 @@ def draw_population():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.1, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.9', fontsize=15, zorder=1e5, ha='left', va='center')
 
     # 层间连线
@@ -385,8 +385,8 @@ def draw_population():
     ax.set_zlim(-0.1, len(graphs) - 1 + 0.1)
 
     # 选择显示视角
-    angle = 30
-    height_angle = 12
+    angle = 13
+    height_angle = 21
     ax.view_init(height_angle, angle)
 
     # 选择显示距离
@@ -433,7 +433,7 @@ def draw_1and2():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.3, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.95', fontsize=15, zorder=1e5, ha='left', va='center',
                                 path_effects=[path_effects.Stroke(linewidth=2, foreground=cols[gi]),
                                               path_effects.Normal()])
@@ -461,7 +461,7 @@ def draw_1and2():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.1, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.9', fontsize=15, zorder=1e5, ha='left', va='center')
 
     # 层间连线
@@ -486,8 +486,8 @@ def draw_1and2():
     ax.set_zlim(-0.1, len(graphs) - 1 + 0.1)
 
     # 选择显示视角
-    angle = 30
-    height_angle = 12
+    angle = 13
+    height_angle = 21
     ax.view_init(height_angle, angle)
 
     # 选择显示距离
@@ -534,7 +534,7 @@ def draw_2and3():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.3, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.95', fontsize=15, zorder=1e5, ha='left', va='center',
                                 path_effects=[path_effects.Stroke(linewidth=2, foreground=cols[gi]),
                                               path_effects.Normal()])
@@ -562,7 +562,7 @@ def draw_2and3():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.1, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.9', fontsize=15, zorder=1e5, ha='left', va='center')
 
     # 层间连线
@@ -587,8 +587,8 @@ def draw_2and3():
     ax.set_zlim(-0.1, len(graphs) - 1 + 0.1)
 
     # 选择显示视角
-    angle = 30
-    height_angle = 12
+    angle = 13
+    height_angle = 21
     ax.view_init(height_angle, angle)
 
     # 选择显示距离
@@ -635,7 +635,7 @@ def draw_1and3():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.3, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.95', fontsize=15, zorder=1e5, ha='left', va='center',
                                 path_effects=[path_effects.Stroke(linewidth=2, foreground=cols[gi]),
                                               path_effects.Normal()])
@@ -663,7 +663,7 @@ def draw_1and3():
             zz = np.zeros(xx.shape) + gi
             ax.plot_surface(xx, yy, zz, color=cols[gi], alpha=0.1, zorder=gi)
             # 添加平面标签
-            layertext = ax.text(1.2, -1.2, gi * 0.95 + 0.5, G.name,
+            layertext = ax.text(1.2, -1.4, gi * 0.95 + 0.5, G.name,
                                 color='.9', fontsize=15, zorder=1e5, ha='left', va='center')
 
     # 层间连线
@@ -688,8 +688,8 @@ def draw_1and3():
     ax.set_zlim(-0.1, len(graphs) - 1 + 0.1)
 
     # 选择显示视角
-    angle = 30
-    height_angle = 12
+    angle = 13
+    height_angle = 21
     ax.view_init(height_angle, angle)
 
     # 选择显示距离
@@ -720,7 +720,8 @@ if __name__ == '__main__':
     plt.rcParams["axes.unicode_minus"] = False  # 该语句解决图像中的“-”负号的乱码问题
 
     # 三层颜色
-    cols = ['steelblue', 'darksalmon', 'mediumseagreen']
+#     cols = ['steelblue', 'darksalmon', 'mediumseagreen']
+    cols = ['#FF6347', '#67C23A', '#4169E1']
 
     G1 = nx.Graph(name="生理学")
     G2 = nx.Graph(name="行为学")

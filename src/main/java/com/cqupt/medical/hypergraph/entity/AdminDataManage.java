@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * @TableName t_table_manager
  */
-@TableName(value ="table_describe",schema = "software10")
+@TableName("table_describe")
 @Data
 public class AdminDataManage implements Serializable {
     private String id;
