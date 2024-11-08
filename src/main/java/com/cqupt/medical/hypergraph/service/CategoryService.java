@@ -39,4 +39,8 @@ public interface CategoryService extends IService<CategoryEntity> {
 //    查看各等级病种
     List<CategoryEntity> getLevel2Label();
     List<CategoryEntity> getLabelsByPid(@Param("pid") String pid);
+
+    String getLabelByNid(@Param("pid") String nid);
+
+    void updateTableNameByTableName(String oldTableName, String tableName, String tableStatus);
 }

@@ -36,11 +36,13 @@
     <select id="getLabelsByPid" resultType="com.cqupt.medical.hypergraph.entity.CategoryEntity">
         SELECT * FROM category WHERE parent_id = #{pid} and is_leafs=0;
     </select>
+    <select id="getLabelByNid" resultType="java.lang.String">
+        SELECT label FROM category WHERE id = #{nid}
+    </select>
 
     <update id="updateTableNameByTableId">
         update category set label=#{tableName}, status=#{tableStatus} where id = CAST(#{tableid} AS VARCHAR);;
     </update>
-
 
     <update id="changeStatusToShare">
         update category set status=1 where id = #{id} ;

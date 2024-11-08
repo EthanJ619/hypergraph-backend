@@ -1,19 +1,33 @@
 server:
-  port: 8186
+#  port: 8186  # 本地
+  port: 8086  # 山东&绵阳部署
 
 spring:
   datasource:
+#    本地 mysql
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    username: user
 #    password: 123456
 #    url: jdbc:mysql:///hypergraph_v2?serverTimezone=UTC
+
+#    实验室 pgsql
+#    driver-class-name: org.postgresql.Driver
 #    username: root
 #    password: 111111
 #    url: jdbc:mysql:///software6
+
+#    本地 pgsql
+    driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/hypergraph
     username: postgres
     password: ethanj960916
-    driver-class-name: org.postgresql.Driver
+
+#    绵阳&山东 pgsql
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/software6
+#    username: postgres
+#    password: 111111
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
@@ -43,3 +57,6 @@ pagehelper:
   helperDialect: postgresql  # 设置数据库类型为PostgreSQL
   reasonable: true      # 分页合理化参数，默认值为 false，设置为 true 后，如果 pageNum 小于 1，则自动设置为 1，如果 pageNum 大于总页数，则自动设置为最后一页
   supportMethodsArguments: true  # 支持通过 Mapper 方法参数来传递分页参数，默认值为 false
+
+encryption:
+  key: tsdsyujbwefy_ywejwbejwb_euwyeyuugdw_u4lppiiisih_diwhywjhewew_sdsdserkhckfsydyg_IAPAIDHLIAUSDS_tftSFASASA_6A6DA9898

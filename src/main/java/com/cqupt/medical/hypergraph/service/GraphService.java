@@ -7,8 +7,8 @@ package com.cqupt.medical.hypergraph.service;
  */
 public interface GraphService {
 
-    String drawSpatialHg(String tableId, String tableName, String taskName);
+    String drawSpatialHg(String tableName, String taskName);
 
-    String drawFactorHg(String tableId, String tableName, String taskName, String algorithm, Object algorParams);
+    String drawFactorHg(String tableName, String taskName, String algorithm, Object algorParams);
 
 }

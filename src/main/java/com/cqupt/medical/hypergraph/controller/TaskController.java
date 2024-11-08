@@ -3,14 +3,11 @@ package com.cqupt.medical.hypergraph.controller;
 import com.cqupt.medical.hypergraph.entity.Task;
 import com.cqupt.medical.hypergraph.service.TaskService;
 import com.cqupt.medical.hypergraph.util.Result;
-import com.cqupt.medical.hypergraph.util.TaskRequest;
+import com.cqupt.medical.hypergraph.vo.TaskRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -35,8 +32,8 @@ public class TaskController {
         TaskRequest request = new TaskRequest();
         System.out.println(task);
         ObjectMapper objectMapper = new ObjectMapper();
-        String res = task.getResult();
-        String[][] retrievedArray = objectMapper.readValue(res, String[][].class);
+//        String res = task.getResult();
+//        String[][] retrievedArray = objectMapper.readValue(res, String[][].class);
 
         String fea1 = task.getFeature();
         String[] fea = fea1.split(",");
@@ -56,9 +53,9 @@ public class TaskController {
             paraV = paraV1.split(",");
         }
 
-        request.setCi(task.getCi());
-        request.setRatio(String.valueOf(task.getRatio()));
-        request.setRes(retrievedArray);
+//        request.setCi(task.getCi());
+//        request.setRatio(String.valueOf(task.getRatio()));
+//        request.setRes(retrievedArray);
         request.setTime(task.getUsetime());
         request.setDisease(task.getDisease());
         request.setDisease(task.getDisease());
@@ -72,6 +69,7 @@ public class TaskController {
         request.setTaskName(task.getTaskname());
         request.setDataset(task.getDataset());
         request.setUid(task.getUserid());
+        request.setRemark(task.getRemark());
         return Result.success(request);
 
     }
@@ -81,5 +79,4 @@ public class TaskController {
         taskService.deleteTask(id);
         return Result.success(taskService.getTaskList());
     }
-
 }

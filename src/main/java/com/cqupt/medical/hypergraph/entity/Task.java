@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value ="software6task")
+@TableName(value ="task")
 public class Task {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -34,13 +34,10 @@ public class Task {
     private String model;
     private String remark;
     private String feature;
-    private String result;
     private String parameters;
     private String parametersvalues;
     private String targetcolumn;
     private double usetime;
-    private int ci;
-    private double ratio;
     private String dataset;
 
     private Integer userid;

@@ -1,10 +1,10 @@
 package com.cqupt.medical.hypergraph.controller;
 
 import com.cqupt.medical.hypergraph.service.GraphService;
+import com.cqupt.medical.hypergraph.service.TaskService;
+import com.cqupt.medical.hypergraph.vo.TaskRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /**
  * @Author EthanJ
@@ -17,16 +17,20 @@ public class GraphController {
     @Autowired
     private GraphService graphService;
 
+    @Autowired
+    private TaskService taskService;
+
     @PostMapping("/spatialHg")
-    public String drawSpatialHg(@RequestBody Map<String, String> taskInfo) {
-        System.out.println(taskInfo);
-        return graphService.drawSpatialHg(taskInfo.get("tableid"), taskInfo.get("tablename"), taskInfo.get("taskname"));
+    public String drawSpatialHg(@RequestBody TaskRequest taskRequest) {
+        System.out.println(taskRequest);
+        taskService.addTask(taskRequest);
+        return graphService.drawSpatialHg(taskRequest.getDataset(), taskRequest.getTaskName());
     }
 
     @PostMapping("/factorHg")
-    public String drawFactorHg(@RequestBody Map<String, Object> taskInfo, @RequestParam("algorithm") String algorithm) {
-        System.out.println(taskInfo);
-        System.out.println(algorithm);
-        return graphService.drawFactorHg(taskInfo.get("tableid").toString(), taskInfo.get("tablename").toString(), taskInfo.get("taskname").toString(), algorithm, taskInfo.get("algorparams"));
+    public String drawFactorHg(@RequestBody TaskRequest taskRequest, @RequestParam("algorithm") String algorithm) {
+        System.out.println(taskRequest);
+        taskService.addTask(taskRequest);
+        return graphService.drawFactorHg(taskRequest.getDataset(), taskRequest.getTaskName(), algorithm, taskRequest.getAlgorParams());
     }
 }

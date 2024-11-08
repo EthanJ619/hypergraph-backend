@@ -26,13 +26,13 @@ import java.util.*;
 @RequestMapping("/api/sysManage")
 public class AdminDataManageController {
     @Autowired
-    AdminDataManageService adminDataManageService;
+    private AdminDataManageService adminDataManageService;
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
     @Autowired
-    CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
     private LogService logService;
     @Autowired

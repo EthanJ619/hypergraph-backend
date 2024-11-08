@@ -26,12 +26,14 @@ public class GraphServiceImpl implements GraphService {
      * @return
      */
     @Override
-    public String drawSpatialHg(String tableId, String tableName, String taskName) {
+    public String drawSpatialHg(String tableName, String taskName) {
         int exitCode = 1;
         StringBuilder pyOut = null;
         try {
             /*调用py脚本*/
-            ProcessBuilder processBuilder = new ProcessBuilder("python", SCRIPT_PATH.substring(1) + "drawSpatialHg.py", LOCALSTORAGE_PATH, tableId, tableName, taskName);  //读取类绝对路径时会在前面多一个斜杠
+            ProcessBuilder processBuilder = new ProcessBuilder("python", SCRIPT_PATH.substring(1) + "drawSpatialHg.py", LOCALSTORAGE_PATH, tableName, taskName);  //读取类绝对路径时会在前面多一个斜杠
+//            ProcessBuilder processBuilder = new ProcessBuilder("conda", "run", "-n", "software6", "python", "/home/data/WorkSpace/Backend/software6/algorithm/" + "drawSpatialHg.py", LOCALSTORAGE_PATH, tableName, taskName);  //绵阳部署
+//            ProcessBuilder processBuilder = new ProcessBuilder("conda", "run", "-n", "software6", "python", "/root/keti3/backend/software6/script/" + "drawSpatialHg.py", LOCALSTORAGE_PATH, tableName, taskName);  //山东部署
             processBuilder.redirectErrorStream(true);  //重定向标准输出，使得要执行的进程的错误输出可以被输入流读取
             Process process = processBuilder.start();
 
@@ -62,12 +64,14 @@ public class GraphServiceImpl implements GraphService {
      * @return
      */
     @Override
-    public String drawFactorHg(String tableId, String tableName, String taskName, String algorithm, Object algorParams) {
+    public String drawFactorHg(String tableName, String taskName, String algorithm, Object algorParams) {
         int exitCode = 1;
         StringBuilder pyOut = null;
         try {
             /*调用py脚本*/
-            ProcessBuilder processBuilder = new ProcessBuilder("python", SCRIPT_PATH.substring(1) + "drawFactorHg.py", tableId, tableName, algorithm, algorParams.toString());  //读取类绝对路径时会在前面多一个斜杠
+            ProcessBuilder processBuilder = new ProcessBuilder("python", SCRIPT_PATH.substring(1) + "drawFactorHg.py", tableName, algorithm, algorParams.toString());  //读取类绝对路径时会在前面多一个斜杠
+//            ProcessBuilder processBuilder = new ProcessBuilder("conda", "run", "-n", "software6", "python", "/home/data/WorkSpace/Backend/software6/algorithm/" + "drawFactorHg.py", tableName, algorithm, algorParams.toString());  //绵阳部署
+//            ProcessBuilder processBuilder = new ProcessBuilder("conda", "run", "-n", "software6", "python", "/root/keti3/backend/software6/script/" + "drawFactorHg.py", tableName, algorithm, algorParams.toString());  //山东部署
             processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
 
@@ -75,11 +79,14 @@ public class GraphServiceImpl implements GraphService {
             BufferedReader in = new BufferedReader(new InputStreamReader((process.getInputStream())));
             String line = null;
             pyOut = new StringBuilder();
-            while ((line = in.readLine()) != null)
+            while ((line = in.readLine()) != null) {
+                pyOut.append(line).append("\n"); //获得所有输出，用于后端调试
                 if (line.startsWith("{\"edges\":")) {
+                    pyOut.setLength(0);
                     pyOut.append(line).append("\n");
                     break;
                 }
+            }
 
             exitCode = process.waitFor();
 
@@ -90,7 +97,7 @@ public class GraphServiceImpl implements GraphService {
         if (exitCode == 0)
             return new JsonUtil(SUCCESS_CODE, "危险因素超图构建成功", pyOut).toJsonString();
         else
-            return new JsonUtil(FAIL_CODE, "超图构建出错", null).toJsonString();
+            return new JsonUtil(FAIL_CODE, "超图构建出错", pyOut).toJsonString();
 //        return new JsonUtil(SUCCESS_CODE, "时间超图构建成功", null).toJsonString();
 
     }

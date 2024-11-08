@@ -3,6 +3,7 @@ package com.cqupt.medical.hypergraph.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cqupt.medical.hypergraph.entity.AlgorithmUsageDailyStats;
 import com.cqupt.medical.hypergraph.entity.Task;
+import com.cqupt.medical.hypergraph.vo.TaskRequest;
 
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface TaskService extends IService<Task> {
 
     void deleteTask(int id);
 
+    boolean addTask(TaskRequest taskRequest);
 }

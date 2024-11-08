@@ -5,6 +5,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import networkx as nx
 import matplotlib.patheffects as path_effects
 from mpl_toolkits.mplot3d.art3d import Line3DCollection
+from sklearn.impute import KNNImputer
+from sklearn.preprocessing import StandardScaler
 import random
 import sys
 import os
@@ -12,10 +14,7 @@ import os
 import psycopg2
 
 pathSep = os.path.sep
-localStorage_path = sys.argv[1]  # 由于是在java中使用processBuilder进行脚本执行，所以在当前脚本中获取相对路径时会获取到母进程(java程序)的所在目录(项目根目录)，所以只能通过命令参数将存储路径传递过来
-table_id = sys.argv[2]
-table_name = sys.argv[3]
-task_name = sys.argv[4]
+localStorage_path, table_name, task_name = sys.argv[-3:]  # 由于是在java中使用processBuilder进行脚本执行，所以在当前脚本中获取相对路径时会获取到母进程(java程序)的所在目录(项目根目录)，所以只能通过命令参数将存储路径传递过来
 # csv_file = localStorage_path + "table" + pathSep + table_name
 
 G_spatial = {'population': [],
@@ -31,11 +30,13 @@ G_spatial = {'population': [],
 
 def get_table(table_name):
     conn = psycopg2.connect(
-        dbname = "hypergraph",
-        user = "postgres",
-        password = "ethanj960916",
-        host = "localhost",
-        port = "5432"
+        user="postgres",
+        dbname="hypergraph",
+        password="ethanj960916",
+#         dbname="software6",
+#         password="111111",
+        host="localhost",
+        port="5432"
     )
     query = "SELECT * FROM " + table_name
     df = pd.read_sql(query, conn)
@@ -702,8 +703,19 @@ def draw_1and3():
 
 if __name__ == '__main__':
     data = get_table(table_name)
-
     data = data.drop(columns=[col for col in ['index', 'label', 'id'] if col in data.columns])  # 去掉索引列、标签列
+
+    # 遍历所有数值列，将其转换为数值类型
+    for col in data.columns:
+        data[col] = pd.to_numeric(data[col], errors='coerce')
+
+    # KNN缺失值插补
+    imputer = KNNImputer(n_neighbors=5)
+    data = pd.DataFrame(imputer.fit_transform(data), columns=data.columns)
+
+    # 标准化
+    scaler = StandardScaler()
+    data = pd.DataFrame(scaler.fit_transform(data), columns=data.columns)
 
     correlation_matrix = data.corr(method='pearson').applymap(lambda x: 1 if x > 0.7 else 0)
 
@@ -716,7 +728,8 @@ if __name__ == '__main__':
                    correlation_matrix.iloc[i, j] == 1]
 
     # 绘图部分
-    plt.rcParams["font.sans-serif"] = ["Microsoft YaHei"]  # 设置字体
+    plt.rcParams["font.sans-serif"] = ['SimHei']  # 设置字体
+#     plt.rcParams["font.sans-serif"] = ['AR PL UMing CN']  # 绵阳部署
     plt.rcParams["axes.unicode_minus"] = False  # 该语句解决图像中的“-”负号的乱码问题
 
     # 三层颜色

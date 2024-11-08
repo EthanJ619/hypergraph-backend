@@ -1,4 +1,4 @@
-package com.cqupt.medical.hypergraph.util;
+package com.cqupt.medical.hypergraph.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,15 +17,13 @@ public class TaskRequest {
     private String model;
     private String remark;
     private double time;
-    private String ratio;
-    private int ci;
     private String dataset;
 
     private String[] feature;
     private String[] para;
     private String[] paraValue;
+    private Object algorParams;
 
     private String[] targetcolumn;
-    private String[][] res;
     private Integer uid;
 }

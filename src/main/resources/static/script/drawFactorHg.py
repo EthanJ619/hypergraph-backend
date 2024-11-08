@@ -7,26 +7,28 @@ from sklearn.cluster import KMeans
 from hyperg.hyperg import HyperG
 from hyperg.utils import print_log
 from cvxpy.error import SolverError
+from sklearn.impute import KNNImputer
+from sklearn.preprocessing import StandardScaler
 import psycopg2
 import sys
 import ast
 import re
 import json
 
-table_id = sys.argv[1]
-table_name = sys.argv[2]
-algorithm = sys.argv[3]
+table_name,algorithm,algor_params = sys.argv[-3:]
 
 # 保证对象字符串中的布尔型和数值型正确转换
-algor_params = sys.argv[4].replace('=', ':').replace('false', 'False').replace('true', 'True').replace('null','None')
+algor_params = algor_params.replace('=', ':').replace('false', 'False').replace('true', 'True').replace('null','None')
 algor_params = re.sub(r'(\w+)\s*:', r'"\1":', algor_params)
 algor_params = ast.literal_eval(algor_params)
 
 def get_table(table_name):
     conn = psycopg2.connect(
-        dbname="hypergraph",
         user="postgres",
+        dbname="hypergraph",
         password="ethanj960916",
+#         dbname="software6",
+#         password="111111",
         host="localhost",
         port="5432"
     )
@@ -165,6 +167,19 @@ def convert_to_js_format(H, feas):
 if __name__ == '__main__':
     df = get_table(table_name)
     df = df.drop(columns=[col for col in ['index', 'label', 'id'] if col in df.columns])
+
+    # 遍历所有数值列，将其转换为数值类型
+    for col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+
+    # KNN缺失值插补
+    imputer = KNNImputer(n_neighbors = 5)
+    df = pd.DataFrame(imputer.fit_transform(df), columns = df.columns)
+
+    # 标准化
+    scaler = StandardScaler()
+    df = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+
     feas = df.columns.tolist()
     df_transposed = df.T
 

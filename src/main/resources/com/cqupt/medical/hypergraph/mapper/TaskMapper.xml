@@ -61,7 +61,7 @@
 
 
     <select id="getlistbyId" resultType="com.cqupt.medical.hypergraph.entity.Task">
-        select * from task where  id = #{Id}
+        select * from task where id = #{Id}
     </select>
 
     <delete id="deleteTask">
